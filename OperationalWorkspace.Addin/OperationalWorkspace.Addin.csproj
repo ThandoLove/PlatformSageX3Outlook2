@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Accelist.FluentValidation.Blazor" Version="4.0.0" />
+   
+    <PackageReference Include="FluentValidation" Version="12.2.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.2.0" />
+    
+    
+   
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.1" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="5.0.1" />
+    <PackageReference Include="Radzen.Blazor" Version="12.1.3" />
+    
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OperationalWorkspaceApplication\OperationalWorkspaceApplication.csproj" />
+	  <ProjectReference Include="..\SharedProject\OperationalWorkspaceShared.csproj" />
+	  <ProjectReference Include="..\OperationalWorkspaceUI\OperationalWorkspaceUI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AddinState\" />
+  </ItemGroup>
+
+</Project>
