@@ -35,7 +35,7 @@ else
 {
     <div class="form-container">
         <div class="page-header">
-            <FluentButton Appearance="Appearance.Stealth"
+            <FluentButton Appearance="ButtonAppearance.Default"
                           IconStart="@(new Icons.Regular.Size20.ArrowLeft())"
                           OnClick="HandleCancel" />
             <h2>@(TicketId == null ? "New Service Request" : $"Edit Ticket: {_ticket.TicketNumber}")</h2>
@@ -63,17 +63,12 @@ else
                     <label>REQUEST INFORMATION</label>
                     <FluentGrid>
                         <FluentGridItem xs="12" sm="8">
-                            <FluentTextField Label="Subject" @bind-Value="_ticket.Title" Required="true" FullWidth="true" />
+                            <FluentTextField TValue="string" Label="Subject" Value="@_ticket.Title" ValueChanged="@( (string v) => _ticket.Title = v )" Required="true" FullWidth="true" />
                         </FluentGridItem>
                         <FluentGridItem xs="12" sm="4">
-                            <FluentSelect TOption="string"
-                                          Label="Priority"
-                                          @bind-Value="_ticket.Priority"
-                                          FullWidth="true">
-                                <FluentOption TOption="string" Value="Low">Low</FluentOption>
-                                <FluentOption TOption="string" Value="Medium">Medium</FluentOption>
-                                <FluentOption TOption="string" Value="High">High</FluentOption>
-                            </FluentSelect>
+                            <FluentSelect TOption="string" TValue="string" Label="Priority" FullWidth="true"
+                                          Items="@PriorityOptions"
+                                          Value="@_ticket.Priority" ValueChanged="@( (string v) => _ticket.Priority = v )" />
                         </FluentGridItem>
                     </FluentGrid>
                 </div>
@@ -83,13 +78,13 @@ else
                     <label>SAGE X3 CONTEXT</label>
                     <FluentGrid>
                         <FluentGridItem xs="12" sm="4">
-                            <FluentTextField Label="Customer Name" @bind-Value="_ticket.CustomerName" Readonly="@IsEmailContextLive" Placeholder="e.g. Tech Innovations" FullWidth="true" />
+                            <FluentTextField TValue="string" Label="Customer Name" Value="@_ticket.CustomerName" ValueChanged="@( (string v) => _ticket.CustomerName = v )" Readonly="@IsEmailContextLive" Placeholder="e.g. Tech Innovations" FullWidth="true" />
                         </FluentGridItem>
                         <FluentGridItem xs="12" sm="4">
-                            <FluentTextField Label="Site Code" @bind-Value="_ticket.SiteCode" Placeholder="e.g. AO011" FullWidth="true" />
+                            <FluentTextField TValue="string" Label="Site Code" Value="@_ticket.SiteCode" ValueChanged="@( (string v) => _ticket.SiteCode = v )" Placeholder="e.g. AO011" FullWidth="true" />
                         </FluentGridItem>
                         <FluentGridItem xs="12" sm="4">
-                            <FluentTextField Label="Machine Serial" @bind-Value="_ticket.MachineCode" FullWidth="true" />
+                            <FluentTextField TValue="string" Label="Machine Serial" Value="@_ticket.MachineCode" ValueChanged="@( (string v) => _ticket.MachineCode = v )" FullWidth="true" />
                         </FluentGridItem>
                     </FluentGrid>
                 </div>
@@ -97,14 +92,14 @@ else
                 @* SECTION 3: PROBLEM DESCRIPTION *@
                 <div class="form-section">
                     <label>PROBLEM DESCRIPTION</label>
-                    <FluentTextArea Label="Issue Details" @bind-Value="_ticket.Description" Rows="5" FullWidth="true" />
+                    <FluentTextArea TValue="string" Label="Issue Details" Value="@_ticket.Description" ValueChanged="@( (string v) => _ticket.Description = v )" Rows="5" FullWidth="true" />
                 </div>
 
                 @* BUTTON FOOTER BAR *@
                 <div class="form-footer">
                     <FluentButton OnClick="HandleCancel">Cancel</FluentButton>
                     <FluentButton Type="@Microsoft.FluentUI.AspNetCore.Components.ButtonType.Submit"
-                                  Appearance="Appearance.Accent"
+                                  Appearance="ButtonAppearance.Default"
                                   Class="sage-submit-btn">
                         @(TicketId == null ? "Create in Sage X3" : "Update Sage X3")
                     </FluentButton>
@@ -113,6 +108,8 @@ else
             </FluentStack>
         </EditForm>
     };
+
+    private string[] PriorityOptions = new[] { "Low", "Medium", "High" };
 
     protected override void OnInitialized()
     {

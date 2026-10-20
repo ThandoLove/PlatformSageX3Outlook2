@@ -5,7 +5,7 @@
 @if (Tasks == null || !Tasks.Any())
 {
     <div style="padding: 20px; text-align: center; color: #605e5c;">
-        <FluentIcon Value="@(new Icons.Regular.Size24.ClipboardTask())" Color="Color.Disabled" />
+        <FluentIcon Value="@(new Icons.Regular.Size24.ClipboardTask())" Color="@Color.Disabled" />
         <p>No related tasks found.</p>
     </div>
 }
@@ -36,7 +36,7 @@ else
                             <td style="padding: 8px;">@task.Title</td>
 
                             <td style="padding: 8px;">
-                                <FluentBadge Appearance="Appearance.Neutral">
+                                <FluentBadge>
                                     @(task.Completed ? "Completed" : "Active")
                                 </FluentBadge>
                             </td>

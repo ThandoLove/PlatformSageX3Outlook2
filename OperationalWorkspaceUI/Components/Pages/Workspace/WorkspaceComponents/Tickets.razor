@@ -18,9 +18,9 @@
             <h2>Support Tickets</h2>
             <p>Manage and track all customer support requests</p>
         </div>
-        <FluentButton Appearance="Appearance.Accent"
+        <FluentButton Style="background-color: #111827; color: white; padding: 6px 10px; border-radius: 6px;"
                       IconStart="@(new Icons.Regular.Size20.Add())"
-                      OnClick="@(() => NavManager.NavigateTo(AppRoutes.Tickets + "/new"))">
+                      OnClick="@GoToNewTicket">
             New Ticket
         </FluentButton>
     </div>
@@ -44,17 +44,15 @@
             </TemplateColumn>
 
             <TemplateColumn Title="Status">
-                <FluentBadge Appearance="Appearance.Neutral"
-                             Fill="@(context.Status == "Closed" || context.Status == "Resolved" ? "#64748b" : "#005fb8")"
-                             Color="white">
+                <FluentBadge Fill="@(context.Status == "Closed" || context.Status == "Resolved" ? "#64748b" : "#005fb8")" Style="color: white;">
                     @context.Status
                 </FluentBadge>
             </TemplateColumn>
 
             <PropertyColumn Property="@(t => t.CreatedAt.ToShortDateString())" Title="Created" Sortable="true" />
 
-            <TemplateColumn Title="Actions" Align="Align.End">
-                <FluentButton Appearance="Appearance.Stealth"
+            <TemplateColumn Title="Actions">
+                <FluentButton Style="background-color: transparent; color: inherit; border: none;"
                               IconStart="@(new Icons.Regular.Size16.Edit())"
                               OnClick="@(() => EditTicket(context))" />
             </TemplateColumn>
@@ -92,6 +90,8 @@
 
     private void EditTicket(TicketDto ticket) =>
         NavManager.NavigateTo($"{AppRoutes.Tickets}/edit/{ticket.Id}");
+
+    private void GoToNewTicket() => NavManager.NavigateTo("/tickets/new");
 
     public void Dispose() => WState.OnChange -= Refresh;
 }

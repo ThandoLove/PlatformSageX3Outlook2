@@ -15,9 +15,9 @@
             <FluentIcon Value="@(new Icons.Regular.Size20.TicketDiagonal())" Color="@Color.Neutral" />
             <h3 class="panel-title">Active Tickets</h3>
         </div>
-        <FluentButton Appearance="Appearance.Lightweight"
+        <FluentButton Style="background: transparent; border: none; color: #3b82f6; padding: 6px 12px;"
                       IconStart="@(new Icons.Regular.Size16.Add())"
-                      OnClick="@(() => NavManager.NavigateTo("/tickets/new"))">
+                      OnClick="@GoToNewTicket">
             New
         </FluentButton>
     </div>
@@ -49,8 +49,8 @@
 
     @* FOOTER *@
     <div class="panel-footer">
-        <FluentButton Appearance="Appearance.Lightweight" Class="footer-btn" OnClick="@(() => NavManager.NavigateTo("/tickets"))">
-            Open Full Ticket Manager
+        <FluentButton Style="background: transparent; border: none; color: #3b82f6; padding: 6px 12px;" Class="footer-btn" OnClick="@GoToTickets">
+            View All
         </FluentButton>
     </div>
 
@@ -71,5 +71,15 @@
     public void Dispose()
     {
         WState.OnChange -= Refresh;
+    }
+
+    private void GoToNewTicket()
+    {
+        NavManager.NavigateTo("/tickets/new");
+    }
+
+    private void GoToTickets()
+    {
+        NavManager.NavigateTo("/tickets");
     }
 }

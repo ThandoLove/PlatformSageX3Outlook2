@@ -17,7 +17,7 @@
     @if (WorkspaceState.IsUploading)
     {
         <div class="upload-overlay">
-            <FluentProgressRing Class="overlay-ring" />
+            <FluentSpinner Class="overlay-ring" />
             <span class="overlay-text">Processing Upload...</span>
         </div>
     }
@@ -25,22 +25,22 @@
     @* HEADER *@
     <div class="panel-header">
         <h3 class="panel-title">Documents</h3>
-        <FluentButton Appearance="Appearance.Stealth" OnClick="@(() => UploadToEmail())" Class="panel-action">
+        <FluentButton Style="background: transparent; border: none; color: inherit;" OnClick="@(() => UploadToEmail())" Class="panel-action">
             <FluentIcon Value="@(new Icons.Regular.Size20.ArrowUpload())" Color="@Color.Accent" />
         </FluentButton>
     </div>
 
     @* SEARCH *@
     <div class="search-row">
-        <FluentSearch Placeholder="Search files..." @bind-Value="_searchQuery" @bind:event="oninput" Class="search-full" />
+        <FluentSearch Placeholder="Search files..." Value="@_searchQuery" ValueChanged="@( (string v) => _searchQuery = v )" Class="search-full"  />
     </div>
 
     @* DOCUMENT LIST *@
     <div class="document-list">
-        @if (WorkspaceState.Attachments == null)
+        if (WorkspaceState.Attachments == null)
         {
             <div class="loading-placeholder">
-                <FluentProgressRing Class="loading-ring" />
+                <FluentSpinner Class="loading-ring" />
             </div>
         }
         else if (!FilteredAttachments.Any())
@@ -57,7 +57,7 @@
                     <div class="doc-name-cell">
                         <div class="doc-filename">@doc.FileName</div>
                     </div>
-                    <FluentButton Appearance="Appearance.Stealth" IconStart="@(new Icons.Regular.Size16.Attach())" OnClick="@(() => Attach(doc.FileName))" />
+                    <FluentButton Style="background: transparent; border: none; color: inherit;" IconStart="@(new Icons.Regular.Size16.Attach())" OnClick="@(() => Attach(doc.FileName))" />
                 </div>
             }
         }
@@ -65,7 +65,7 @@
 
     @* FOOTER *@
     <div class="panel-footer">
-        <FluentButton Appearance="Appearance.Stealth" Class="panel-footer-btn" OnClick="@(() => NavManager.NavigateTo("/attachments"))">
+        <FluentButton Style="background-color: #0b5fff; color: #ffffff; padding: 6px 10px; border-radius: 6px;" Class="panel-footer-btn" OnClick="@GoToAttachments">
             Go to Attachments &nbsp; <FluentIcon Value="@(new Icons.Regular.Size16.Open())" />
         </FluentButton>
     </div>
@@ -149,4 +149,9 @@
 
     private Microsoft.FluentUI.AspNetCore.Components.Icon GetFileIcon(string name) => name.ToLower().EndsWith(".pdf") ? new Icons.Filled.Size20.DocumentPdf() : new Icons.Filled.Size20.DocumentBulletList();
     private Microsoft.FluentUI.AspNetCore.Components.Color GetIconColor(string name) => name.ToLower().EndsWith(".pdf") ? Color.Error : Color.Accent;
+
+    private void GoToAttachments()
+    {
+        NavManager.NavigateTo("/attachments");
+    }
 }

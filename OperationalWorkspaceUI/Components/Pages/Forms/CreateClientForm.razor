@@ -40,6 +40,7 @@ else
     [Parameter] public string? FullName { get; set; }
 
     private ClientDto NewClient = new();
+    private static readonly string[] ClientCategories = new[] { "DOM", "INT", "EU" };
 
     private RenderFragment FormFieldsLayout => __builder =>
     {
@@ -51,14 +52,12 @@ else
                 <FluentLabel Typo="Typography.Body">BUSINESS IDENTITY</FluentLabel>
                 <div class="form-grid-2-col">
                     <div>
-                        <FluentTextField Label="Client Name" @bind-Value="NewClient.Name" FullWidth="true" />
+                        <FluentTextField TValue="string" Label="Client Name" Value="@NewClient.Name" ValueChanged="@( (string v) => NewClient.Name = v )" FullWidth="true" />
                         <ValidationMessage For="@(() => NewClient.Name)" />
                     </div>
-                    <FluentSelect Label="Client Category" TOption="string" FullWidth="true">
-                        <FluentOption TOption="string" Value="DOM">Domestic Customer</FluentOption>
-                        <FluentOption TOption="string" Value="INT">International Customer</FluentOption>
-                        <FluentOption TOption="string" Value="EU">EU Customer</FluentOption>
-                    </FluentSelect>
+                <FluentSelect TOption="string" TValue="string" Label="Client Category" FullWidth="true"
+                                  Items="@ClientCategories"
+                                  Value="@NewClient.Category" ValueChanged="@( (string v) => NewClient.Category = v )" />
                 </div>
                 <div class="single-field-row">
                     <FluentTextField Label="Tax / VAT Number" Placeholder="e.g. GB123456789" FullWidth="true" />
@@ -69,11 +68,11 @@ else
             <div class="sage-form-group">
                 <FluentLabel Typo="Typography.Body">CONTACT INFO</FluentLabel>
                 <div class="single-field-row">
-                    <FluentTextField Label="Email Address" @bind-Value="NewClient.Email" FullWidth="true" />
+                    <FluentTextField TValue="string" Label="Email Address" Value="@NewClient.Email" ValueChanged="@( (string v) => NewClient.Email = v )" FullWidth="true" />
                 </div>
 
                 <div class="form-grid-2-col">
-                    <FluentTextField Label="Phone Number" @bind-Value="NewClient.PhoneNumber" FullWidth="true" />
+                    <FluentTextField TValue="string" Label="Phone Number" Value="@NewClient.PhoneNumber" ValueChanged="@( (string v) => NewClient.PhoneNumber = v )" FullWidth="true" />
                     <FluentTextField Label="Website" Placeholder="https://" FullWidth="true" />
                 </div>
             </div>
@@ -82,7 +81,7 @@ else
             <div class="sage-form-group">
                 <FluentLabel Typo="Typography.Body">LOCATION</FluentLabel>
                 <div class="single-field-row">
-                    <FluentTextArea Label="Full Address" @bind-Value="NewClient.Address" Rows="3" FullWidth="true" />
+                <FluentTextArea TValue="string" Label="Full Address" Value="@NewClient.Address" ValueChanged="@( (string v) => NewClient.Address = v )" Rows="3" FullWidth="true" />
                 </div>
 
                 <div class="form-grid-2-col">
@@ -95,7 +94,7 @@ else
             <div class="form-footer">
                 @* 🚀 FIXED: Fully-qualified ButtonType names completely remove Radzen conflict lookup bugs *@
                 <FluentButton Type="@Microsoft.FluentUI.AspNetCore.Components.ButtonType.Button" OnClick="@(() => HandleCancel())">Cancel</FluentButton>
-                <FluentButton Type="@Microsoft.FluentUI.AspNetCore.Components.ButtonType.Submit" Appearance="Appearance.Accent" Class="sage-submit-btn">Save Client to Sage</FluentButton>
+                <FluentButton Type="@Microsoft.FluentUI.AspNetCore.Components.ButtonType.Submit" Class="sage-submit-btn" Style="background-color: #1b5e20; color: white;">Save Client to Sage</FluentButton>
             </div>
         </EditForm>
     };

@@ -4,8 +4,8 @@
 
 @if (IsLoading)
 {
-    <div class="d-flex justify-content-center p-5">
-        <FluentProgressRing />
+        <div class="d-flex justify-content-center p-5">
+        <FluentSpinner />
     </div>
 }
 else if (Data == null || !Data.Any())
@@ -42,7 +42,7 @@ else
                         <td>@FormatSize(file.FileSize)</td>
                         <td class="text-muted">@file.UploadedAtUtc.ToString("MMM dd, yyyy")</td>
                         <td class="text-end pe-4">
-                            <FluentButton Appearance="Appearance.Stealth"
+                            <FluentButton Style="background: transparent; color: inherit;"
                                           IconStart="@(new Icons.Regular.Size16.ArrowDownload())"
                                           OnClick="() => OnDownload.InvokeAsync(file)" />
                         </td>

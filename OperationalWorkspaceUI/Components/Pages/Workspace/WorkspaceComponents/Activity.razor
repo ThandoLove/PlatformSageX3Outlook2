@@ -22,7 +22,7 @@
         </div>
         <div class="header-actions">
             @* FIXED: Wired interactive spinning state modifiers to FluentButton template values *@
-            <FluentButton Appearance="Appearance.Outline"
+            <FluentButton Style="background: transparent; border: 1px solid #d1d5db; padding: 6px 10px;" 
                           IconStart="@(isSyncing ? new Icons.Regular.Size20.ArrowClockwise() : new Icons.Regular.Size20.ArrowClockwise())"
                           Disabled="@isSyncing"
                           OnClick="HandleLogReloadAsync">
@@ -52,7 +52,7 @@
     @if (State.ActivityLogs == null)
     {
         <div class="loading-container">
-            <FluentProgressRing />
+            <FluentSpinner />
         </div>
     }
     else if (!FilteredLogs.Any())

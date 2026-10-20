@@ -21,8 +21,8 @@
         
         <PropertyColumn Property="@(p => p.Summary)" Title="Summary" />
 
-        <TemplateColumn Title="Actions" Align="Align.End">
-            <FluentButton Appearance="Appearance.Lightweight"
+        <TemplateColumn Title="Actions">
+            <FluentButton Style="background: transparent; border: none; color: inherit;"
                           @* Fix: Use fully qualified icon path *@
                           IconStart="@(new Microsoft.FluentUI.AspNetCore.Components.Icons.Regular.Size16.Open())"
                           OnClick="@(() => OnRowClick.InvokeAsync(context))" />

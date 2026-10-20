@@ -15,9 +15,8 @@
 <div class="right-panel-wrapper @(IsCollapsed ? "panel-collapsed" : "panel-expanded")">
 
     <div class="toggle-button-anchor">
-        <FluentButton Appearance="Appearance.Accent"
-                      OnClick="TogglePanel"
-                      Style="border-radius: 50%; min-width: 32px; height: 32px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+        <FluentButton OnClick="TogglePanel"
+                      Style="border-radius: 50%; min-width: 32px; height: 32px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); background: #fff;">
             @(IsCollapsed ? "◀" : "▶")
         </FluentButton>
     </div>
@@ -28,7 +27,7 @@
             @if (IsLoading)
             {
                 <div class="panel-spinner-box">
-                    <FluentProgressRing />
+                    <FluentSpinner />
                 </div>
             }
             else if (DashboardState.SelectedOrderId != null)
@@ -37,7 +36,7 @@
                     <h3>Order Insight</h3>
                     <p class="insight-main-value">@DashboardState.SelectedOrderId</p>
 
-                    <FluentButton OnClick="ClearOrder" Appearance="Appearance.Neutral">
+                    <FluentButton OnClick="ClearOrder" Style="background: transparent; border: none; color: inherit; padding: 6px 8px;">
                         Clear Context
                     </FluentButton>
                 </FluentCard>

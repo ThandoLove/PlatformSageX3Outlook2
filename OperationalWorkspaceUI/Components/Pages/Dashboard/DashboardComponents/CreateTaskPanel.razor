@@ -19,25 +19,22 @@
 
     <div class="sage-form-group">
         <label class="section-title">SUBJECT</label>
-        <FluentTextField @bind-Value="_newTask.Title" 
+        <FluentTextField TValue="string" Value="@_newTask.Title" ValueChanged="@( (string v) => _newTask.Title = v )"
                          Placeholder="e.g. Follow up on quote..." 
                          FullWidth="true" />
     </div>
 
     <div class="sage-form-group" style="margin-top: 20px;">
         <label class="section-title">ASSIGN TO</label>
-        <FluentSelect TOption="string" Style="width: 100%;" @bind-Value="_newTask.AssignedTo">
-            <FluentIcon Value="@(new Icons.Regular.Size20.Person())" Slot="start" />
-            <FluentOption TOption="string" Value="Admin">Admin</FluentOption>
-            <FluentOption TOption="string" Value="CurrentUser">Current User</FluentOption>
-            <FluentOption TOption="string" Value="Sarah Johnson">Sarah Johnson</FluentOption>
-        </FluentSelect>
+        <FluentSelect TOption="string" TValue="string" Style="width: 100%;"
+                      Items="@AssigneeOptions"
+                      Value="@_newTask.AssignedTo" ValueChanged="@( (string v) => _newTask.AssignedTo = v )" />
     </div>
 
     <div class="form-grid-2-col" style="margin-top: 20px;">
         <div class="sage-form-group">
             <label class="section-title">DUE DATE</label>
-            <FluentDatePicker @bind-Value="_localDueDate" Style="width: 100%;" />
+            <FluentDatePicker Value="@_localDueDate" ValueChanged="@( (DateTime? v) => _localDueDate = v )" Style="width: 100%;" />
         </div>
 
         <div class="sage-form-group">
@@ -46,8 +43,8 @@
                 @foreach (var p in new[] { TaskPriority.Low, TaskPriority.Medium, TaskPriority.High })
                 {
                     <button type="button"
-                            class="priority-btn @(GetPriorityClass(p)) @(_newTask.Priority == p ? "active" : "")"
-                            @onclick="() => _newTask.Priority = p">
+                            class="@GetPriorityButtonClass(p)"
+                            @onclick="@(() => _newTask.Priority = p)">
                         @p.ToString()
                     </button>
                 }
@@ -99,5 +96,15 @@
         TaskPriority.Low => "low-btn",
         _ => ""
     };
+
+    private string[] AssigneeOptions = new[] { "Admin", "CurrentUser", "Sarah Johnson" };
+
+    private string GetPriorityButtonClass(TaskPriority p)
+    {
+        var baseClass = "priority-btn ";
+        var priorityClass = GetPriorityClass(p);
+        var active = _newTask.Priority == p ? " active" : string.Empty;
+        return baseClass + priorityClass + active;
+    }
 }
 

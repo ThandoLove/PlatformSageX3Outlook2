@@ -17,7 +17,7 @@
     @if (WState.IsSendingKnowledge)
     {
         <div class="kb-overlay">
-            <FluentProgressRing Class="kb-overlay-ring" />
+            <FluentSpinner Class="kb-overlay-ring" />
             <span class="kb-overlay-text">Sending Article...</span>
         </div>
     }
@@ -64,7 +64,7 @@
 
     @* Footer Button: Keep this for the Main Page *@
     <div class="kb-footer">
-        <FluentButton Appearance="Appearance.Lightweight" Class="footer-btn" OnClick="@NavigateToKB">
+        <FluentButton Style="background: transparent; border: none; color: #3b82f6; padding: 6px 8px;" Class="footer-btn" OnClick="@NavigateToKB">
             Open Full Knowledge Base
         </FluentButton>
     </div>

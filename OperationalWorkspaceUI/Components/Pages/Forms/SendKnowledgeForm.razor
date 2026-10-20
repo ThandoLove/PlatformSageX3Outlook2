@@ -27,8 +27,9 @@
             <FluentLabel Typo="Typography.Body" Style="font-weight: bold; color: #605e5c;">KNOWLEDGE BASE SEARCH</FluentLabel>
             <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 8px;">Find a Sage X3 article to transmit to the recipient.</p>
             
-            <FluentTextField Label="Search Article Keywords"
-                             @bind-Value="Model.SearchQuery"
+            <FluentTextField TValue="string" Label="Search Article Keywords"
+                             Value="@Model.SearchQuery"
+                             ValueChanged="@( (string v) => Model.SearchQuery = v )"
                              Placeholder="e.g. Invoice Setup, Stock Management..."
                              FullWidth="true"
                              MaxLength="100" />
@@ -38,8 +39,9 @@
         @* SECTION 2: RECIPIENT MESSAGE *@
         <div class="sage-form-group" style="margin-top: 24px;">
             <FluentLabel Typo="Typography.Body" Style="font-weight: bold; color: #605e5c;">PERSONAL MESSAGE</FluentLabel>
-            <FluentTextArea Label="Note to Recipient"
-                            @bind-Value="Model.Message"
+            <FluentTextArea TValue="string" Label="Note to Recipient"
+                            Value="@Model.Message"
+                            ValueChanged="@( (string v) => Model.Message = v )"
                             Placeholder="Add context for this article..."
                             Rows="6"
                             FullWidth="true"

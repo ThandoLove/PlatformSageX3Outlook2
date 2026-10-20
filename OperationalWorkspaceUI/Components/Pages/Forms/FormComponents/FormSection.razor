@@ -17,8 +17,7 @@
     @if (IsPrefilled)
     {
         <div style="margin-top: 10px;">
-            <FluentBadge Appearance="Appearance.Neutral"
-                         Style="background-color: #e6f4ea; color: #1e7e34; border: none; font-weight: bold; font-size: 10px; padding: 4px 8px;">
+            <FluentBadge Style="background-color: #e6f4ea; color: #1e7e34; border: none; font-weight: bold; font-size: 10px; padding: 4px 8px;">
                 PRE-FILLED WITH EMAIL INFO
             </FluentBadge>
         </div>
@@ -31,14 +30,12 @@
 
     @* Footer Actions (Cancel and the specific Green Submit button) *@
     <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; border-top: 1px solid #eee; padding-top: 16px;">
-        <FluentButton Appearance="Appearance.Outline"
+        <FluentButton Style="background: transparent; border: 1px solid #d1d5db; color: inherit; padding: 6px 12px;"
                       OnClick="OnCancel">
             Cancel
         </FluentButton>
-        
-        <FluentButton Appearance="Appearance.Accent"
-                      OnClick="OnSubmit"
-                      Style="background-color: #1b5e20; border-color: #1b5e20; color: white;">
+
+        <FluentButton OnClick="OnSubmit" Style="background-color: #1b5e20; border-color: #1b5e20; color: white; padding: 6px 12px;">
             @SubmitLabel
         </FluentButton>
     </div>

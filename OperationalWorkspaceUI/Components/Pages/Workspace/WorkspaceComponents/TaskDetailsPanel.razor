@@ -119,8 +119,8 @@
 
                 <div class="side-card delegation-box">
                     <div class="card-label">DELEGATE TO TEAM MEMBER</div>
-                    <FluentSelect TOption="TeamMember" Items="@TeamMembers" OptionText="@(i => i.Name)"
-                                  @bind-SelectedOption="@SelectedMember" Placeholder="Select a colleague..."
+                    <FluentSelect TOption="TeamMember" TValue="TeamMember" Items="@TeamMembers" OptionText="@(i => i.Name)"
+                                  Value="@SelectedMember" ValueChanged="@( (TeamMember v) => SelectedMember = v )" Placeholder="Select a colleague..."
                                   Class="select-full" />
                     <button class="btn-blue-delegate-seamless" @onclick="HandleDelegate" disabled="@(SelectedMember == null)">
                         <span>Confirm Delegation</span>

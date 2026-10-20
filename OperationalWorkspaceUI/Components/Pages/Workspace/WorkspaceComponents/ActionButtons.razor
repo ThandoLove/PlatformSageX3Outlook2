@@ -13,29 +13,37 @@
                  Spacing="3"
                  HorizontalAlignment="HorizontalAlignment.Center">
         
-        <FluentButton Appearance="Appearance.Outline"
+        <FluentButton Style="background: transparent; border: 1px solid #d1d5db; padding: 6px 12px;"
                       IconStart="@(new Icons.Regular.Size20.ContactCard())"
-                      OnClick="@(() => NavigationManager.NavigateTo("/forms/create-contact"))">
+                      OnClick="@GoToCreateContact">
             Create Contact
         </FluentButton>
 
-        <FluentButton Appearance="Appearance.Outline"
+        <FluentButton Style="background: transparent; border: 1px solid #d1d5db; padding: 6px 12px;"
                       IconStart="@(new Icons.Regular.Size20.Link())"
-                      OnClick="@(() => NavigationManager.NavigateTo("/forms/link-record"))">
+                      OnClick="@GoToLinkRecord">
             Link to Existing
         </FluentButton>
 
-        <FluentButton Appearance="Appearance.Accent"
+        <FluentButton Style="background-color: #111827; color: white; padding: 6px 12px;"
                       IconStart="@(new Icons.Regular.Size20.Cart())"
-                      OnClick="@(() => NavigationManager.NavigateTo("/forms/create-order"))">
+                      OnClick="@GoToCreateOrder">
             Sales Order
         </FluentButton>
 
-        <FluentButton Appearance="Appearance.Outline"
+        <FluentButton Style="background: transparent; border: 1px solid #d1d5db; padding: 6px 12px;"
                       IconStart="@(new Icons.Regular.Size20.DocumentAdd())"
-                      OnClick="@(() => NavigationManager.NavigateTo("/forms/create-invoice"))">
+                      OnClick="@GoToCreateInvoice">
             Create Invoice
         </FluentButton>
 
     </FluentStack>
 </FluentCard>
+
+@code {
+    private void GoToCreateContact() => NavigationManager.NavigateTo("/forms/create-contact");
+    private void GoToLinkRecord() => NavigationManager.NavigateTo("/forms/link-record");
+    private void GoToCreateOrder() => NavigationManager.NavigateTo("/forms/create-order");
+    private void GoToCreateInvoice() => NavigationManager.NavigateTo("/forms/create-invoice");
+}
+

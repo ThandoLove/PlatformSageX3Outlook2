@@ -19,32 +19,26 @@
 
     @* --- Field 1: Task Title --- *@
     <div class="form-field-group" style="display: flex; flex-direction: column; gap: 6px; width: 100%;">
-        <FluentTextField Label="Task Title / Subject"
+        <FluentTextField TValue="string" Label="Task Title / Subject"
                          Placeholder="e.g., Resolve Invoice mismatch INV-10045"
                          Style="width: 100%; --fluent-control-corner-radius: 6px;"
-                         @bind-Value="Model.Title" />
+                         Value="@Model.Title" ValueChanged="@( (string v) => Model.Title = v )" />
     </div>
 
     @* --- Field 2: Company Connection --- *@
     <div class="form-field-group" style="display: flex; flex-direction: column; gap: 6px; width: 100%;">
-        <FluentTextField Label="Client / Company Name"
+        <FluentTextField TValue="string" Label="Client / Company Name"
                          Placeholder="e.g., Tech Innovations Inc."
                          Style="width: 100%; --fluent-control-corner-radius: 6px;"
-                         @bind-Value="Model.CompanyName" />
+                         Value="@Model.CompanyName" ValueChanged="@( (string v) => Model.CompanyName = v )" />
     </div>
 
     @* --- Field 3: Explicit Employee Recipient (🚀 RESTORED CORE SELECTION HOOK) --- *@
     <div class="form-field-group" style="display: flex; flex-direction: column; gap: 6px; width: 100%;">
-        <FluentSelect Label="Assign / Delegate To Intended Recipient"
-                      TOption="string"
+        <FluentSelect TOption="string" TValue="string" Label="Assign / Delegate To Intended Recipient"
                       Style="width: 100%; height: 32px; --fluent-control-corner-radius: 6px;"
-                      @bind-Value="NewTaskAssignee">
-            <FluentOption TOption="string" Value="Unassigned">-- Leave Unassigned (Send to General Inbox) --</FluentOption>
-            <FluentOption TOption="string" Value="Amit Patel">Amit Patel (Sales Dept)</FluentOption>
-            <FluentOption TOption="string" Value="Deepa Patel">Deepa Patel (Support Dept)</FluentOption>
-            <FluentOption TOption="string" Value="John Smith">John Smith (Finance Dept)</FluentOption>
-            <FluentOption TOption="string" Value="Sarah Johnson">Sarah Johnson (Tech Lead)</FluentOption>
-        </FluentSelect>
+                      Items="@AssigneeOptions"
+                      Value="@NewTaskAssignee" ValueChanged="@( (string v) => NewTaskAssignee = v )" />
     </div>
 
     @* --- Field 4 & 5 Split Grid Row --- *@
@@ -53,27 +47,21 @@
         <div class="form-field-group" style="display: flex; flex-direction: column; gap: 6px;">
             <FluentDatePicker Label="Due Date"
                               Style="width: 100%; --fluent-control-corner-radius: 6px;"
-                              @bind-Value="Model.DueDate" />
+                              Value="@Model.DueDate" ValueChanged="@( (DateTime? v) => Model.DueDate = v ?? DateTime.Today )" />
         </div>
 
         <div class="form-field-group" style="display: flex; flex-direction: column; gap: 6px;">
-            <FluentSelect Label="Urgency / Priority"
-                          TOption="string"
+            <FluentSelect TOption="string" TValue="string" Label="Urgency / Priority"
                           Style="width: 100%; min-width: 100%; height: 32px; --fluent-control-corner-radius: 6px;"
-                          @bind-Value="PriorityString">
-                <FluentOption TOption="string" Value="Low">Low</FluentOption>
-                <FluentOption TOption="string" Value="Medium">Medium</FluentOption>
-                <FluentOption TOption="string" Value="High">High</FluentOption>
-                <FluentOption TOption="string" Value="Urgent">Urgent</FluentOption>
-            </FluentSelect>
+                          Items="@PriorityOptions"
+                          Value="@PriorityString" ValueChanged="@( (string v) => PriorityString = v )" />
         </div>
 
     </div>
 
     @* --- Form Action Strip Row --- *@
     <div class="form-action-row" style="display: flex; justify-content: flex-end; align-items: center; margin-top: 14px; border-top: 1px solid #e2e8f0; padding-top: 16px; width: 100%;">
-        <FluentButton Appearance="Appearance.Accent"
-                      Style="min-width: 130px; height: 36px; font-weight: 700; background: #2563eb; color: white; --fluent-control-corner-radius: 6px; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);"
+        <FluentButton Style="min-width: 130px; height: 36px; font-weight: 700; background: #2563eb; color: white; --fluent-control-corner-radius: 6px; box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);"
                       Disabled="@(string.IsNullOrWhiteSpace(Model.Title) || string.IsNullOrWhiteSpace(Model.CompanyName))"
                       @onclick="Create">
             🚀 Dispatch Task
@@ -86,6 +74,8 @@
     private TaskDto Model = new();
     private string PriorityString = "Medium";
     private string NewTaskAssignee = "Unassigned";
+    private string[] AssigneeOptions = new[] { "Unassigned", "Amit Patel", "Deepa Patel", "John Smith", "Sarah Johnson" };
+    private string[] PriorityOptions = new[] { "Low", "Medium", "High", "Urgent" };
 
     [Parameter] public EventCallback<TaskDto> OnCreated { get; set; }
 

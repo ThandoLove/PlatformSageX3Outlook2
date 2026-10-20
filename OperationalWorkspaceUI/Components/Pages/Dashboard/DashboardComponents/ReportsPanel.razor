@@ -22,28 +22,28 @@
 
         @foreach (var report in reportNames.Take(2))
         {
-            <div class="report-card">
-                <div class="report-card-title">@report</div>
-                <div class="report-card-actions">
-                    <FluentButton Appearance="Appearance.Outline"
-                                  OnClick="@(() => HandleExport(report, "PDF"))"
-                                  Class="report-action-btn">
-                        <FluentIcon Value="@(new Microsoft.FluentUI.AspNetCore.Components.Icons.Regular.Size16.DocumentPdf())"
-                                    Slot="start"
-                                    Color="@Microsoft.FluentUI.AspNetCore.Components.Color.Error" />
-                        PDF
-                    </FluentButton>
-                    
-                    <FluentButton Appearance="Appearance.Outline"
-                                  OnClick="@(() => HandleExport(report, "XLSX"))"
-                                  Class="report-action-btn">
-                        <FluentIcon Value="@(new Microsoft.FluentUI.AspNetCore.Components.Icons.Regular.Size16.Table())"
-                                    Slot="start"
-                                    Color="@Microsoft.FluentUI.AspNetCore.Components.Color.Success" />
-                        Excel
-                    </FluentButton>
+                <div class="report-card">
+                    <div class="report-card-title">@report</div>
+                    <div class="report-card-actions">
+                        <FluentButton Style="background: transparent; border: 1px solid #d1d5db; padding: 6px 8px;" 
+                                      OnClick="@(() => ExportPdf(report))"
+                                      Class="report-action-btn">
+                            <FluentIcon Value="@(new Microsoft.FluentUI.AspNetCore.Components.Icons.Regular.Size16.DocumentPdf())"
+                                        Slot="start"
+                                        Color="@Microsoft.FluentUI.AspNetCore.Components.Color.Error" />
+                            PDF
+                        </FluentButton>
+
+                        <FluentButton Style="background: transparent; border: 1px solid #d1d5db; padding: 6px 8px;" 
+                                      OnClick="@(() => ExportXlsx(report))"
+                                      Class="report-action-btn">
+                            <FluentIcon Value="@(new Microsoft.FluentUI.AspNetCore.Components.Icons.Regular.Size16.Table())"
+                                        Slot="start"
+                                        Color="@Microsoft.FluentUI.AspNetCore.Components.Color.Success" />
+                            Excel
+                        </FluentButton>
+                    </div>
                 </div>
-            </div>
         }
     </div>
 </FluentCard>
@@ -59,5 +59,15 @@
         await Task.Delay(2500);
 
         CustomToast.ShowSuccess($"{format} Download Ready");
+    }
+
+    private void ExportPdf(string report)
+    {
+        _ = HandleExport(report, "PDF");
+    }
+
+    private void ExportXlsx(string report)
+    {
+        _ = HandleExport(report, "XLSX");
     }
 }

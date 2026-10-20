@@ -73,7 +73,7 @@
                     <div>
                         @if (task.Priority == TaskPriority.High || task.Priority == TaskPriority.Urgent)
                         {
-                            <FluentBadge BackgroundColor="@(task.Priority == TaskPriority.Urgent ? "#991b1b" : "#ef4444")" Color="white">
+                            <FluentBadge BackgroundColor="@(task.Priority == TaskPriority.Urgent ? "#991b1b" : "#ef4444")" Style="color: white;">
                                 @TaskRulesEngine.PriorityLabel(task.Priority)
                             </FluentBadge>
                         }
@@ -92,9 +92,7 @@
     </div>
 
     <div class="task-footer">
-        <FluentAnchor Appearance="Appearance.Lightweight"
-                      Href="/tasks"
-                      Class="footer-link">
+        <FluentAnchor Style="background: transparent; color: inherit;" Href="/tasks" Class="footer-link">
             View All My Tasks →
         </FluentAnchor>
     </div>

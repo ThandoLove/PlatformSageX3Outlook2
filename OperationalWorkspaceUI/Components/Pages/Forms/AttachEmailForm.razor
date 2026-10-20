@@ -25,7 +25,7 @@
         <div class="dashboard-placeholder" style="text-align: center; padding: 40px; color: #64748b;">
             <FluentIcon Value="@(new Icons.Regular.Size48.Mail())" Color="Color.Disabled" />
             <p style="margin: 16px 0; font-size: 0.9rem;">No active email context loaded. Please select an email from the Outlook panel to execute record linkage.</p>
-            <FluentButton Appearance="Appearance.Outline" OnClick="HandleCancel">Return to Dashboard</FluentButton>
+            <FluentButton Style="background: transparent; border: 1px solid #d1d5db; padding: 6px 12px;" OnClick="HandleCancel">Return to Dashboard</FluentButton>
         </div>
     }
     else
@@ -46,15 +46,12 @@
             <div class="sage-form-group" style="margin-top: 24px;">
                 <FluentLabel Typo="Typography.Body" Style="font-weight: bold; color: #605e5c;">TARGET RECORD</FluentLabel>
                 <div class="form-grid-2-col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px;">
-                    <FluentSelect Label="Entity Type" TOption="string" @bind-Value="Model.EntityType" Style="width: 100%;">
-                        <FluentOption TOption="string" Value="Client">Client / Business Partner</FluentOption>
-                        <FluentOption TOption="string" Value="Order">Sales Order</FluentOption>
-                        <FluentOption TOption="string" Value="Task">Operational Task</FluentOption>
-                        <FluentOption TOption="string" Value="Quote">Sales Quote</FluentOption>
-                    </FluentSelect>
+                    <FluentSelect TOption="string" TValue="string" Label="Entity Type" Style="width: 100%;"
+                                  Items='@(new[] { "Client", "Order", "Task", "Quote" })'
+                                  Value="@Model.EntityType" ValueChanged="@( (string v) => Model.EntityType = v )" />
 
                     <div>
-                        <FluentTextField Label="Record ID / Reference" @bind-Value="Model.RecordId" Placeholder="e.g. SON001234" FullWidth="true" />
+                        <FluentTextField TValue="string" Label="Record ID / Reference" Value="@Model.RecordId" ValueChanged="@( (string v) => Model.RecordId = v )" Placeholder="e.g. SON001234" FullWidth="true" />
                         <ValidationMessage For="@(() => Model.RecordId)" />
                     </div>
                 </div>

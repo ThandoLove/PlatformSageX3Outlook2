@@ -53,7 +53,7 @@
             <label for="fileInput" class="btn-upload-primary @(State.IsUploading ? "is-disabled" : "")">
                 @if (State.IsUploading)
                 {
-                    <FluentProgressRing Class="upload-ring" />
+                    <FluentSpinner Class="upload-ring" />
                     <span class="upload-text">Uploading...</span>
                 }
                 else

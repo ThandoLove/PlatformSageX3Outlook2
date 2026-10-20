@@ -1,52 +1,70 @@
-﻿@using Microsoft.FluentUI.AspNetCore.Components
+﻿
+@using Microsoft.AspNetCore.Components.Forms
 
 <div style="margin-bottom: 12px; width: 100%;">
-    @if (Type == "textarea")
+    @if (Type.Equals("textarea", StringComparison.OrdinalIgnoreCase))
     {
-        <FluentTextArea Label="@Label"
-                        @bind-Value="@Value"
-                        Rows="4"
-                        Resize="TextAreaResize.Vertical"
-                        Style="width: 100%;" />
+        <div style="width: 100%;">
+            <label>@Label</label>
+            <InputTextArea @bind-Value="Value"
+                           class="form-control"
+                           rows="4"
+                           style="width: 100%;" />
+        </div>
     }
-    else if (Type == "select" && Options != null)
+    else if (Type.Equals("select", StringComparison.OrdinalIgnoreCase)
+             && Options is not null)
     {
-        @* FIXED: Added TOption="string" and explicit binding parameters *@
-        <FluentSelect Label="@Label"
-                      TOption="string"
-                      Value="@Value"
-                      ValueChanged="@(val => ValueChanged.InvokeAsync(val))"
-                      Style="width: 100%;">
-            @foreach (var opt in Options)
-            {
-                <FluentOption TOption="string" Value="@opt.Key">@opt.Value</FluentOption>
-            }
-        </FluentSelect>
+        <div style="width: 100%;">
+            <label>@Label</label>
+            <InputSelect TValue="string"
+                         Value="Value"
+                         ValueChanged="OnValueChanged"
+                         ValueExpression="@(() => Value)"
+                         class="form-control"
+                         style="width: 100%;">
+                @foreach (var opt in Options)
+                {
+                    <option value="@opt.Key">@opt.Value</option>
+                }
+            </InputSelect>
+        </div>
     }
     else
     {
-        <FluentTextField Label="@Label"
-                         Type="@GetFluentType(Type)"
-                         @bind-Value="@Value"
-                         Style="width: 100%;" />
+        <div style="width: 100%;">
+            <label>@Label</label>
+            <InputText @bind-Value="Value"
+                       type="@GetInputType(Type)"
+                       class="form-control"
+                       style="width: 100%;" />
+        </div>
     }
 </div>
 
 @code {
     [Parameter] public string? Label { get; set; }
     [Parameter] public string Type { get; set; } = "text";
-    
-    // Support two-way binding (@bind-Value)
+
     [Parameter] public string? Value { get; set; }
     [Parameter] public EventCallback<string?> ValueChanged { get; set; }
 
-    [Parameter] public List<KeyValuePair<string, string>>? Options { get; set; }
+    [Parameter]
+    public List<KeyValuePair<string, string>>? Options { get; set; }
 
-    private TextFieldType GetFluentType(string type) => type.ToLower() switch
+    private Task OnValueChanged(string? value)
     {
-        "password" => TextFieldType.Password,
-        "email" => TextFieldType.Email,
-        "tel" => TextFieldType.Tel,
-        _ => TextFieldType.Text
-    };
+        Value = value;
+        return ValueChanged.InvokeAsync(value);
+    }
+
+    private static string GetInputType(string type) =>
+        type.ToLowerInvariant() switch
+        {
+            "password" => "password",
+            "email" => "email",
+            "tel" => "tel",
+            "number" => "number",
+            _ => "text"
+        };
 }
